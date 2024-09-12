@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { GlobalServiceContext } from "../services/GlobalServiceContext";
 import axios from "../services/jwtGlobalHandler";
 
-
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

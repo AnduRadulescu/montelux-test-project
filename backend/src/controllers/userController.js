@@ -46,11 +46,11 @@ const login = async (req, res) => {
     if (user) {
       const compare = await bcrypt.compare(password, user.password);
       if (compare) {
-        let token = jwt.sign({ id: user.id }, process.env.secretKey, {
-          expiresIn: "1d",
+        let token = jwt.sign({ id: user.dataValues.user_id }, process.env.secretKey, {
+          expiresIn:  1 * 24 * 60 * 60 * 1000, 
         });
 
-        res.cookie("jwt", token, { httpOnly: true, maxAge: 1 * 24 * 60 * 60 });
+        res.cookie("jwt", token, { httpOnly: true, sameSite: 'lax',  maxAge: 600000 });
         console.log("user", JSON.stringify(user, null, 2));
         console.log(token);
         //send users details

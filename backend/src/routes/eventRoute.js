@@ -8,7 +8,7 @@ router.get('/getAllEvents', requireAuth.jwtAuthentication, eventController.getAl
 
 router.get('/getEventsByTitle/:title', requireAuth.jwtAuthentication, eventController.getEventsByTitle)
 
-router.get('/getEventsByLocationAndDate', requireAuth.jwtAuthentication, eventController.getEventsByLocationAndDate)
+router.get('/getEventsByLocationAndDate/:location/:startDate/:endDate', requireAuth.jwtAuthentication, eventController.getEventsByLocationAndDate)
 
 router.post('/createEvent', requireAuth.jwtAuthentication, eventController.createEvent)
 

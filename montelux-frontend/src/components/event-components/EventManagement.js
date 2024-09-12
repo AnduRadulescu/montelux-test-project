@@ -162,8 +162,20 @@ function EventManagement() {
       });
   }
 
-  function onSearch() {
+  function onSearchLocationAndStartEndDate() {
     // search for events
+    if(searchLocation === "" && searchStartDate ==="" && searchEndDate === "") {
+      getAllEvents();
+      return;
+    }
+    axios
+      .get(`http://localhost:3000/api/event/getEventsByLocationAndDate/${searchLocation}/${searchStartDate}/${searchEndDate}`)
+      .then((response) => {
+        setEvents(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   return (
@@ -237,7 +249,7 @@ function EventManagement() {
               className="form-control me-2"
               onChange={(e) => setSearchLocation(e.target.value)}
             />
-            <Button variant="primary" size="sm" onClick={onSearch}>
+            <Button variant="primary" size="sm" onClick={onSearchLocationAndStartEndDate}>
               Search
             </Button>
           </div>

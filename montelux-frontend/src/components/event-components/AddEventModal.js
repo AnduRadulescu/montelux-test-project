@@ -14,6 +14,7 @@ const AddEventModal = ({
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [location, setLocation] = useState("");
+  const [error, setError] = useState("");
 
   // useEffect to populate the form with eventInputData when it changes
   useEffect(() => {
@@ -30,6 +31,11 @@ const AddEventModal = ({
   }
 
   function handleAddSubmit() {
+    if(new Date(date) < new Date()) {
+      setError("Date must be in the future");
+      return;
+    }
+    setError("");
     handleAddEvent({ title, description, date, location });
     handleModalClose();
   }
@@ -77,8 +83,11 @@ const AddEventModal = ({
               value={date}
               placeholder="Enter date"
               onChange={(e) => setDate(e.target.value)}
+              isInvalid={!!error}
             />
           </Form.Group>
+          {/* Inline error message */}
+          <p style={{ color: "red" }}>{!!error? error : ''}</p>
           <Form.Group controlId="location">
             <Form.Label>Location</Form.Label>
             <Form.Control

@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const db = require("../models");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
+const { Op } = require('sequelize');
 dotenv.config();
 
 // Assigning event to the variable event
@@ -27,13 +28,13 @@ const getAllEvents = async (req, res) => {
   }
 };
 
-// get all events with specific title
+// get all events with specific title not exact match
 const getEventsByTitle = async (req, res) => {
   try {
     const { title } = req.params;
     const events = await Event.findAll({
       where: {
-        title: title,
+        title: { [Op.like]: `%${title}%` }
       },
     });
     if (events) {
@@ -46,10 +47,13 @@ const getEventsByTitle = async (req, res) => {
   }
 };
 
+// get all events with specific title not exact match
+
+
 //get all events with specific location and date range
 const getEventsByLocationAndDate = async (req, res) => {
   try {
-    const { location, startDate, endDate } = req.body;
+    const { location, startDate, endDate } = req.params;
     const events = await Event.findAll({
       where: {
         location: location,
