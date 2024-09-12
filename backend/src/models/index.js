@@ -1,8 +1,8 @@
 const { Sequelize, DataTypes } = require("sequelize");
 
 const sequelize = new Sequelize(
-  "postgres://alexandruradulescu@localhost:5432/monteluxdb",
-  { dialect: "postgres" }
+  "database", 'user', 'password',
+  { dialect: "postgres", host: "localhost" }
 );
 
 //checking if connection is done
