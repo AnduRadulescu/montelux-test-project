@@ -26,6 +26,11 @@ const AddEventModal = ({
   }, [eventInputData]);
 
   function handleUpdateSubmit() {
+    if(new Date(date) < new Date()) {
+      setError("Date must be in the future");
+      return;
+    }
+    setError("");
     handleUpdateEvent({ id, title, description, date, location });
     handleModalClose();
   }
